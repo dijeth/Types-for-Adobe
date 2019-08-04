@@ -4144,7 +4144,7 @@ declare class Artboards {
 	 * Add artboard object.
 	 * @param artboardRect Size and position of artboard.
 	 */
-	add(artboardRect: number[]): Artboard;
+	add(artboardRect: [number, number, number, number]): Artboard;
 
 	/**
 	 * Retrieves the index position of the active artboard in the document's list.
@@ -4167,7 +4167,7 @@ declare class Artboards {
 	 * @param artboardRect Size and position of artboard.
 	 * @param index Index position where artboard should be inserted.
 	 */
-	insert(artboardRect: number[], index: number): void;
+	insert(artboardRect: [number, number, number, number], index: number): void;
 
 	/**
 	 * Delete artboard object.
@@ -5302,33 +5302,40 @@ declare class Brushes {
 }
 
 /**
- * A collection of art styles.
+ * A collection of GraphicStyle objects in a document.
  */
-declare class ArtStyles {
+declare class GraphicStyles {
 	/**
-	 * Number of elements in the collection.
+	 * The number of graphic styles in the document.
 	 */
-	length: number;
-	
-	[n:number]: ArtStyle;
+	readonly length: number;
+	[n: number]: GraphicStyle;
 
 	/**
-	 * The object's container.
+	 * The document that contains this graphic styles collection.
 	 */
-	parent: object;
+	readonly parent: Document;
 
 	/**
-	 * The class name of the object.
+	 * The class name of the referenced object.
 	 */
-	typename: string;
+	readonly typename: string;
 
 	/**
-	 * Get the first element in the collection with the provided name.
+	 * Gets the first element in the collection with the specified name.
 	 */
-	getByName(name: string): ArtStyle;
+	getByName(name: string): GraphicStyle;
+
 
 	/**
-	 * Deletes all elements.
+	 * Gets an element from the collection.
+	 */
+	index(itemKey: string): GraphicStyle;
+	index(itemKey: number): GraphicStyle;
+
+
+	/**
+	 * Removes all elements in the referenced collection.
 	 */
 	removeAll(): void;
 
@@ -5952,7 +5959,7 @@ declare class PDFSaveOptions {
 	/**
 	 * The bleed offset rect.
 	 */
-	bleedOffsetRect: number[];
+	bleedOffsetRect: [number, number, number, number];
 
 	/**
 	 * Draw color bars.
@@ -7637,7 +7644,7 @@ declare class PaperInfo {
 	/**
 	 * The imageable area.
 	 */
-	imageableArea: number[];
+	imageableArea: [number, number, number, number];
 
 	/**
 	 * The paper's width (in points)
@@ -7798,7 +7805,7 @@ declare class DocumentPreset {
 	/**
 	 * Document bleed offset rect.
 	 */
-	documentBleedOffset: number[];
+	documentBleedOffset: [number, number, number, number];
 
 	/**
 	 * The height for the new document.
@@ -8079,7 +8086,7 @@ declare class PrintPageMarksOptions {
 	/**
 	 * The bleed offset rect.
 	 */
-	bleedOffsetRect: number[];
+	bleedOffsetRect: [number, number, number, number];
 
 	/**
 	 * Whether to enable color bars printing.
@@ -8089,7 +8096,7 @@ declare class PrintPageMarksOptions {
 	/**
 	 * The page marks offset rect.
 	 */
-	marksOffsetRect: number[];
+	marksOffsetRect: [number, number, number, number];
 
 	/**
 	 * Whether to enable page info marks printing.
@@ -8472,7 +8479,7 @@ declare class Application {
 	/**
 	 * The selection visible to the user.
 	 */
-	selection: any;
+	selection: any[] | null;
 
 	/**
 	 * The list of presets available for creating a new document.
@@ -9075,7 +9082,7 @@ declare class Document {
 	/**
 	 * 
 	 */
-	cropBox: number[];
+	cropBox: [number, number, number, number];
 
 	/**
 	 * 
@@ -9165,7 +9172,7 @@ declare class Document {
 	/**
 	 * The bounds of the illustration excluding stroke width.
 	 */
-	geometricBounds: number[];
+	geometricBounds: [number, number, number, number];
 
 	/**
 	 * The gradients available in this document.
@@ -9180,7 +9187,7 @@ declare class Document {
 	/**
 	 * The graphic styles defined in this document.
 	 */
-	graphicStyles: ArtStyles;
+	graphicStyles: GraphicStyles;
 
 	/**
 	 * The group items in this document.
@@ -9315,7 +9322,7 @@ declare class Document {
 	/**
 	 * The selection within the document.
 	 */
-	selection: any;
+	selection: any[] | null;
 
 	/**
 	 * 
@@ -9405,7 +9412,7 @@ declare class Document {
 	/**
 	 * The visible bounds of the illustration including stroke width.
 	 */
-	visibleBounds: number[];
+	visibleBounds: [number, number, number, number];
 
 	/**
 	 * 
@@ -9508,7 +9515,7 @@ declare class Document {
 	 * @param clipBounds The rectangular region of the artwork for image capture. If the parameter is omitted, the entire artwork bound is captured.
 	 * @param options Describes the image capture options.
 	 */
-	imageCapture(imageFile: File, clipBounds?: Rect, options?: ImageCaptureOptions): void;
+	imageCapture(imageFile: File, clipBounds?: [number, number, number, number], options?: ImageCaptureOptions): void;
 
 	/**
 	 * Load the character styles from the Illustrator file.
@@ -9582,7 +9589,7 @@ declare class Document {
 	 * @param clipBounds The rectangular region of the artwork for the rasterization. If the parameter is omitted, the bounds of the source art(s) is used instead.
 	 * @param options Describes the rasterization options.
 	 */
-	rasterize(sourceArt: any, clipBounds?: Rect, options?: RasterizeOptions): PageItem;
+	rasterize(sourceArt: any, clipBounds?: [number, number, number, number], options?: RasterizeOptions): PageItem;
 
 	/**
 	 * Rearrange Artboards in the document.
@@ -9806,11 +9813,6 @@ declare class Layer {
 	remove(): void;
 
 	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
-
-	/**
 	 * Arranges the layer relative to other layers.
 	 * @param zOrderCmd How to arrange the layer.
 	 */
@@ -9825,7 +9827,7 @@ declare class View {
 	/**
 	 * The bounding rectangle of this view.
 	 */
-	bounds: number[];
+	bounds: [number, number, number, number];
 
 	/**
 	 * The center point of this view.
@@ -9888,11 +9890,6 @@ declare class Gradient {
 	 */
 	remove(): void;
 
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
-
 }
 
 /**
@@ -9933,11 +9930,6 @@ declare class GradientStop {
 	 * Deletes this object.
 	 */
 	remove(): void;
-
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
 
 }
 
@@ -10080,11 +10072,6 @@ declare class Spot {
 	 */
 	remove(): void;
 
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
-
 }
 
 /**
@@ -10121,11 +10108,6 @@ declare class Variable {
 	 */
 	remove(): void;
 
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
-
 }
 
 /**
@@ -10156,11 +10138,6 @@ declare class DataSet {
 	 * Deletes this object.
 	 */
 	remove(): void;
-
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
 
 	/**
 	 * Re-apply the dynamic data of the active dataset to the artboard.
@@ -10197,11 +10174,6 @@ declare class Swatch {
 	 * Deletes this object.
 	 */
 	remove(): void;
-
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
 
 }
 
@@ -10246,11 +10218,6 @@ declare class SwatchGroup {
 	 */
 	remove(): void;
 
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
-
 }
 
 /**
@@ -10276,11 +10243,6 @@ declare class Pattern {
 	 * Deletes this object.
 	 */
 	remove(): void;
-
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
 
 }
 
@@ -10313,11 +10275,6 @@ declare class Symbol {
 	 */
 	remove(): void;
 
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
-
 }
 
 /**
@@ -10348,46 +10305,40 @@ declare class Brush {
 }
 
 /**
- * An art style.
+ * A graphic style. Each graphic style defines a set of appearance attributes that you can apply
+ * non-destructively to page items. Graphic styles are contained in documents. Scripts cannot create new
+ * graphic styles.
  */
-declare class ArtStyle {
+declare class GraphicStyle {
 	/**
-	 * The art style's name.
+	 * The graphic style name.
 	 */
 	name: string;
 
 	/**
-	 * The object's container.
+	 * The document that contains this graphic style.
 	 */
-	parent: object;
+	readonly parent: Document;
 
 	/**
-	 * The class name of the object.
+	 * The class name of the referenced object.
 	 */
-	typename: string;
+	readonly typename: string;
 
 	/**
-	 * Apply a brush or art style to object(s)
-	 * @param artItem The page item(s) to apply to.
+	 * Applies this art style to a specified art item.
 	 */
-	applyTo(artItem: any): void;
+	applyTo(artItem: PageItem): void;
 
 	/**
-	 * Merge an art style to object(s) current style(s)
-	 * @param artItem The page item(s) to merge to.
+	 * Merges this art style into the current styles of a specified art item.
 	 */
-	mergeTo(artItem: any): void;
+	mergeTo(artItem: PageItem): void;
 
 	/**
 	 * Deletes this object.
 	 */
 	remove(): void;
-
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
-
 }
 
 /**
@@ -10453,7 +10404,7 @@ declare class PageItem {
 	/**
 	 * The bounds of the artwork including stroke width and controls.
 	 */
-	controlBounds: number[];
+	controlBounds: [number, number, number, number];
 
 	/**
 	 * Can the art item be modified.
@@ -10463,7 +10414,7 @@ declare class PageItem {
 	/**
 	 * The bounds of the artwork excluding stroke width.
 	 */
-	geometricBounds: number[];
+	geometricBounds: [number, number, number, number];
 
 	/**
 	 * The height of the art item.
@@ -10558,7 +10509,7 @@ declare class PageItem {
 	/**
 	 * The visible bounds of the artwork including stroke width.
 	 */
-	visibleBounds: number[];
+	visibleBounds: [number, number, number, number];
 
 	/**
 	 * The width of the art item.
@@ -10612,11 +10563,6 @@ declare class PageItem {
 	 * Deletes this object.
 	 */
 	remove(): void;
-
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
 
 	/**
 	 * Scale art object(s)
@@ -10720,11 +10666,6 @@ declare class Tag {
 	 * Deletes this object.
 	 */
 	remove(): void;
-
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
 
 }
 
@@ -10894,11 +10835,6 @@ declare class PathPoint {
 	 */
 	remove(): void;
 
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
-
 }
 
 /**
@@ -10913,7 +10849,7 @@ declare class RasterItem extends PageItem {
 	/**
 	 * Dimensions of raster art object regardless of transformations.
 	 */
-	boundingBox: number[];
+	boundingBox: [number, number, number, number];
 
 	/**
 	 * The number of image channels.
@@ -10990,7 +10926,7 @@ declare class PlacedItem extends PageItem {
 	/**
 	 * Dimensions of placed art object, regardless of transformations.
 	 */
-	boundingBox: number[];
+	boundingBox: [number, number, number, number];
 
 	/**
 	 * The content variable bound to this placed art object.
@@ -11742,11 +11678,6 @@ declare class TextRange {
 	remove(): void;
 
 	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
-
-	/**
 	 * Select the text range.
 	 * @param addToDocument Whether to add the text range to the document text selection.
 	 */
@@ -11846,11 +11777,6 @@ declare class CharacterStyle {
 	 */
 	remove(): void;
 
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
-
 }
 
 /**
@@ -11903,11 +11829,6 @@ declare class ParagraphStyle {
 	 * Deletes this object.
 	 */
 	remove(): void;
-
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
 
 }
 
@@ -12785,7 +12706,7 @@ declare class Artboard {
 	/**
 	 * Size and position of artboard.
 	 */
-	artboardRect: number[];
+	artboardRect: [number, number, number, number];
 
 	/**
 	 * The name of the artboard.
@@ -12831,11 +12752,6 @@ declare class Artboard {
 	 * Deletes this object.
 	 */
 	remove(): void;
-
-	/**
-	 * Deletes all elements.
-	 */
-	removeAll(): void;
 }
 
 
@@ -12843,95 +12759,12 @@ declare class Artboard {
  * Describes a point. This class is also a two-element collection.
  */
 declare class Point {
-	/**
-	 * The left coordinate.
-	 */
-	left: number;
-
-	/**
-	 * The array length.
-	 */
-	length: number;
-
-	/**
-	 * The top coordinate.
-	 */
-	top: number;
-
-	/**
-	 * The left coordinate.
-	 */
-	x: number;
-
-	/**
-	 * The top coordinate.
-	 */
-	y: number;
-
+	new(value1: number, value2: number): [number, number];
 }
 
-/**
- * Describes a rectangle. This class is also a four-element collection.
- */
-declare class Rectangle {
-	/**
-	 * The bottom coordinate.
-	 */
-	bottom: number;
-
-	/**
-	 * The height.
-	 */
-	height: number;
-
-	/**
-	 * The left coordinate.
-	 */
-	left: number;
-
-	/**
-	 * The array length.
-	 */
-	length: number;
-
-	/**
-	 * The right coordinate.
-	 */
-	right: number;
-
-	/**
-	 * The top coordinate.
-	 */
-	top: number;
-
-	/**
-	 * The width.
-	 */
-	width: number;
-
-	/**
-	 * The left coordinate.
-	 */
-	x: number;
-
-	/**
-	 * The top coordinate.
-	 */
-	y: number;
-
+declare const Rect: {
+	new(value1: number, value2: number, value3: number, value4: number): [number, number, number, number];
 }
-
-declare class Rect {
-	bottom: number;
-	height: number;
-	left: number;
-	length: number;
-	right: number;
-	top: number;
-	width: number;
-	x: number;
-	y: number;
-	}
 
 declare enum ElementPlacement {
 	INSIDE = 0,
@@ -13399,9 +13232,6 @@ declare module aiMenu {
 			stamp : "Live PSAdapter_plugin_Stmp",
 			tornEdges : "Live PSAdapter_plugin_TrnE",
 			waterPaper : "Live PSAdapter_plugin_WtrP"
-			},
-		stylize : {
-			glowingEdges : "Live PSAdapter_plugin_GlwE"
 			},
 		texture : {
 			craquelure : "Live PSAdapter_plugin_Crql",
