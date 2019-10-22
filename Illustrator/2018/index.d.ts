@@ -5060,7 +5060,7 @@ declare class Lines {
 	 */
 	length: number;
 
-	[n: number]: pathItem;
+	[n: number]: PathItem;
 
 	/**
 	 * The object's container.
