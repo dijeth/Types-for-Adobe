@@ -9712,7 +9712,7 @@ declare class PageItem {
   /**
    * The value of the Adobe URL tag assigned to this artwork item.
    */
-  URL: string
+  uRL: string
 
   /**
    * The absolute drawing order of the layer.
