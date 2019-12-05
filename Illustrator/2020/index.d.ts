@@ -12680,7 +12680,7 @@ declare const Rect: {
     number,
     number,
     number,
-    number,
+    number
   ]
 }
 
