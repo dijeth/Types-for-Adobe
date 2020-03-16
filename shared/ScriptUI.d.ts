@@ -8,7 +8,7 @@ declare class ScriptUI {
    * Collects the enumerated values that can be used in the alignment and alignChildren properties of controls and containers.
    * Predefined alignment values are: TOP, BOTTOM, LEFT, RIGHT, FILL, CENTER
    */
-  static readonly Alignment: string
+  static readonly Alignment: Alignment
 
   /**
    * Collects the enumerated values that can be used as the style argument to the ScriptUI.newFont() method.
@@ -100,8 +100,10 @@ declare class Window extends _Control {
   /**
    * Tells the layout manager how unlike-sized children of this container should be aligned within a column or row.
    * Order of creation determines which children are at the top of a column or the left of a row; the earlier a child is created, the closer it is to the top or left of its column or row. If defined, alignment for a child element overrides the alignChildren setting for the parent container. See alignment property for values.
+   * X 'LEFT', 'CENTER', 'RIGHT', FILL'
+   * Y 'TOP', 'CENTER', 'BOTTOM'
    */
-  alignChildren: string
+  alignChildren: [AlignmentX, AlignmentY]
 
   /**
    * For windows of type dialog, the UI element to notify when the user presses a cancellation key combination.
@@ -1882,7 +1884,7 @@ declare class Group extends _Control {
    * Tells the layout manager how unlike-sized children of this container should be aligned within a column or row.
    * Order of creation determines which children are at the top of a column or the left of a row; the earlier a child is created, the closer it is to the top or left of its column or row. If defined, alignment for a child element overrides the alignChildren setting for the parent container. See alignment property for values.
    */
-  alignChildren: string
+  alignChildren: [AlignmentX, AlignmentY]
 
   /**
    * An array of child elements.
@@ -1950,7 +1952,7 @@ declare class Panel extends _Control {
   /**
    * Specifies how to align the child elements.
    */
-  alignChildren: string
+  alignChildren: [AlignmentX, AlignmentY]
 
   /**
    * Reserve space for the specified number of characters; affects calculation of preferredSize .
@@ -2397,7 +2399,7 @@ declare class _Control {
    * For orientation=column: left, right, fill
    * For orientation=stack:top, bottom, left, right, fill
    */
-  alignment: string
+  alignment: [AlignmentX, AlignmentY]
 
   /**
    * The boundaries of the element, in parent-relative coordinates.
@@ -2812,3 +2814,7 @@ interface _WindowPanelGroupAdd {
     properties?: Partial<_ControlPropertiesMap["treeview"]>,
   ): TreeView
 }
+
+type AlignmentX = 'LEFT' | 'RIGHT' | 'FILL' | 'CENTER';
+type AlignmentY = 'TOP' | 'BOTTOM' | 'FILL' | 'CENTER';
+type Alignment = AlignmentX | AlignmentY;
