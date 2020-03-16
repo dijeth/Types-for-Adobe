@@ -103,7 +103,7 @@ declare class Window extends _Control {
    * X 'LEFT', 'CENTER', 'RIGHT', FILL'
    * Y 'TOP', 'CENTER', 'BOTTOM'
    */
-  alignChildren: [AlignmentX, AlignmentY];
+  alignChildren: [AlignmentX, AlignmentY]
 
   /**
    * For windows of type dialog, the UI element to notify when the user presses a cancellation key combination.
@@ -1880,7 +1880,7 @@ declare class Group extends _Control {
    * Tells the layout manager how unlike-sized children of this container should be aligned within a column or row.
    * Order of creation determines which children are at the top of a column or the left of a row; the earlier a child is created, the closer it is to the top or left of its column or row. If defined, alignment for a child element overrides the alignChildren setting for the parent container. See alignment property for values.
    */
-  alignChildren: string
+  alignChildren: [AlignmentX, AlignmentY]
 
   /**
    * An array of child elements.
@@ -1948,7 +1948,7 @@ declare class Panel extends _Control {
   /**
    * Specifies how to align the child elements.
    */
-  alignChildren: string
+  alignChildren: [AlignmentX, AlignmentY]
 
   /**
    * Reserve space for the specified number of characters; affects calculation of preferredSize .
