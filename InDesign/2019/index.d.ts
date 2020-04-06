@@ -3883,7 +3883,7 @@ declare class Document {
 	/**
 	 * The full path to the file.
 	 */
-	filePath: File
+	filePath: Folder
 
 	/**
 	 * A collection of fonts.
