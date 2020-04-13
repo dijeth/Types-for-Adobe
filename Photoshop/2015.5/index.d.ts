@@ -7043,12 +7043,12 @@ declare class PathPointInfo {
   /**
    * The x and y coordinates of one end point of the path segment.
    */
-  static anchor: (Point | [number, number])[]
+  static anchor: (PathPoint | [number, number])[]
 
   /**
    * The x and y coordinates of one end point of the path segment.
    */
-  anchor: (Point | [number, number])[]
+  anchor: (PathPoint | [number, number])[]
 
   /**
    * The point type.
@@ -7063,22 +7063,22 @@ declare class PathPointInfo {
   /**
    * The location of the left direction point ("in" position).
    */
-  static leftDirection: (Point | [number, number])[]
+  static leftDirection: (PathPoint | [number, number])[]
 
   /**
    * The location of the left direction point ("in" position).
    */
-  leftDirection: (Point | [number, number])[]
+  leftDirection: (PathPoint | [number, number])[]
 
   /**
    * The location of the right direction point ("out" position).
    */
-  static rightDirection: (Point | [number, number])[]
+  static rightDirection: (PathPoint | [number, number])[]
 
   /**
    * The location of the right direction point ("out" position).
    */
-  rightDirection: (Point | [number, number])[]
+  rightDirection: (PathPoint | [number, number])[]
 }
 
 /**
@@ -9308,7 +9308,7 @@ declare class ArtLayer extends Layer {
    * Adjusts the tonal range of the selected channel using up to fourteen points.
    * @param curveShape The curve points. The number of points must be between 2 and 14.
    */
-  adjustCurves(curveShape: (Point | [number, number])[]): void
+  adjustCurves(curveShape: (PathPoint | [number, number])[]): void
 
   /**
    * Adjusts levels of the selected channels.
@@ -10653,7 +10653,7 @@ declare class PathPoint {
   /**
    * The position (coordinates) of the anchor point.
    */
-  readonly anchor: Point | [number, number]
+  readonly anchor: PathPoint | [number, number]
 
   /**
    * The type of point.
@@ -10663,7 +10663,7 @@ declare class PathPoint {
   /**
    * The location of the left direction point (the "in" position).
    */
-  readonly leftDirection: Point | [number, number]
+  readonly leftDirection: PathPoint | [number, number]
 
   /**
    * The object's container.
@@ -10673,7 +10673,7 @@ declare class PathPoint {
   /**
    * The location of the right direction point (the "out" position).
    */
-  readonly rightDirection: Point | [number, number]
+  readonly rightDirection: PathPoint | [number, number]
 
   /**
    * The class name of the object.
